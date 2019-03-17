@@ -10,7 +10,6 @@
 		outputCartRow( filenames[i], titles[i], quantities[i], prices[i].toFixed(2), calculateTotal(quantities[i], prices[i]).toFixed(2));
 		total = total + calculateTotal(quantities[i], prices[i]);
 		i++;
-		console.log("test");
 	}
 	var tax = (total*0.10);
 	calcRow( "Subtotal", total.toFixed(2), false);
