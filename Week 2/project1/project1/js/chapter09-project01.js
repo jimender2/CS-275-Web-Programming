@@ -15,11 +15,12 @@ window.addEventListener("load", function(){
 		field[i].addEventListener("focus", test);
 		field[i].addEventListener("blur", test);
 	}
+
 	document.getElementById("mainForm").addEventListener("submit", 
 	function(e) {
 		var title = document.getElementById("title").value;
 		var year = document.getElementById("year").value;
-		var museum = document.getElementById("museum").value;
+		var description = document.getElementById("description").value;
 		if (title == null || title == ""){
 			document.getElementById("title").classList.add("error");
 			e.preventDefault();
@@ -32,12 +33,20 @@ window.addEventListener("load", function(){
 		} else if (year != null) {
 			document.getElementById("year").classList.remove("error");
 		}
-		if (museum == null || museum == ""){
-			document.getElementById("museum").classList.add("error");
+		if (description == null || description == ""){
+			document.getElementById("description").classList.add("error");
 			e.preventDefault();
-		} else if (museum != null) {
-			document.getElementById("museum").classList.remove("error");
+		} else if (description != null) {
+			document.getElementById("description").classList.remove("error");
 		}
+});
+
+	document.getElementById("mainForm").addEventListener("reset", 
+	function(e) {
+		document.getElementById("title").classList.remove("error");
+		document.getElementById("year").classList.remove("error");
+		document.getElementById("description").classList.remove("error");
+		
 });
 });
 
