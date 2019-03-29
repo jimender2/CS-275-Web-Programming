@@ -47,10 +47,13 @@ document.write('<script src="/jquery-3.1.0.min.js"><\/script>');
 	$("#thumbBox img").on("click", clicker);
 	
 	function clicker(){
-		console.log("test");
 		var src = $(this).attr('src');
 		src = src.replace("small", "medium");
         $('#imgManipulated img').attr('src',src);
+		
+		var title = $(this).attr('alt');
+		var artist = $(this).attr('title');
+		$('#imgManipulated figcaption').html("<em>" + title + "</em> <br>" + artist);
 
 	}
 </script>    
