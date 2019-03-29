@@ -48,6 +48,10 @@ document.write('<script src="/jquery-3.1.0.min.js"><\/script>');
 	
 	function clicker(){
 		console.log("test");
+		var src = $(this).attr('src');
+
+        $('#imgManipulated img').attr('src',src);
+
 	}
 </script>    
 </body>   
