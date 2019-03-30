@@ -67,10 +67,11 @@ document.write('<script src="/jquery-3.1.0.min.js"><\/script>');
 		var blurValue = 'blur(' + sliderBlur.value + 'px)';
 		var opacityValue = 'opacity(' + sliderOpacity.value + '%)';
 		var brightnessValue = 'brightness(' + sliderBrightness.value + '%)';
-		var contrastValue = 'contrast(' + sliderHue.value + '%)';
-		
+		var hueValue = 'hue-rotate(' + sliderHue.value + 'deg)';
+		var saturationValue = 'contrast(' + sliderSaturation.value + '%)';
+
 		$('#imgManipulated').css({
-			'-webkit-filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + contrastValue
+			'-webkit-filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + hueValue + " " + saturationValue
 		});
 		console.log(id);
 	
