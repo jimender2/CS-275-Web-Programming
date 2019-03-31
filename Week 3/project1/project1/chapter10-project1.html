@@ -70,13 +70,19 @@ document.write('<script src="/jquery-3.1.0.min.js"><\/script>');
 		var hueValue = 'hue-rotate(' + sliderHue.value + 'deg)';
 		var saturationValue = 'contrast(' + sliderSaturation.value + '%)';
 
-		$('#imgManipulated').css({
-			'-webkit-filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + hueValue + " " + saturationValue
+		$('#imgManipulated img').css({
+			'-webkit-filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + hueValue + " " + saturationValue,
+			'filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + hueValue + " " + saturationValue
 		});
-		console.log(id);
 	
 	}
 
+	$("#sliderBox resetFilters").on("click", reset);
+
+	function reset(){
+		console.log("test");	
+		console.log("test");	
+	}
 </script>
 </body>
 </html>
