@@ -44,6 +44,13 @@ document.write('<script src="/jquery-3.1.0.min.js"><\/script>');
     </div>
 </main>
 <script>
+	window.onload = function(){
+		var load = (window.name).split(":")
+		if (load[0] != ""){
+			$('figure img').attr('src', load[0]);
+			$('#imgManipulated figcaption').html(load[1]);
+		}
+	}
 	$("#thumbBox img").on("click", clicker);
 	
 	function clicker(){
@@ -74,15 +81,18 @@ document.write('<script src="/jquery-3.1.0.min.js"><\/script>');
 			'-webkit-filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + hueValue + " " + saturationValue,
 			'filter': blurValue + " " + grayValue + " " + brightnessValue + " " + opacityValue + " " + hueValue + " " + saturationValue
 		});
-	
+
+		$("#numOpacity").html(sliderOpacity.value);
+		$("#numSaturation").html(sliderSaturation.value);
+		$("#numBrightness").html(sliderBrightness.value);
+		$("#numHue").html(sliderHue.value);
+		$("#numGray").html(sliderGray.value);
+		$("#numBlur").html(sliderBlur.value);
 	}
 
-	$("#sliderBox resetFilters").on("click", reset);
-
-	function reset(){
-		console.log("test");	
-		console.log("test");	
-	}
+	$("#resetFilters").on("click", function(){
+		window.name = ($('figure img').attr('src') + ":" + $('#imgManipulated figcaption').html());
+	});
 </script>
 </body>
 </html>
