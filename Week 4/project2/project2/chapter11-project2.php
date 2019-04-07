@@ -10,44 +10,43 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
-    
+
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 </head>
 
 <body>
-    
+
 <!-- The drawer is always open in large screens. The header is always shown,
   even in small screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
             mdl-layout--fixed-header">
-            
+
 	<?php
 		include 'header.inc.php';
 		include 'left.inc.php';
 		include 'data.inc.php';
-		
-		
-		
+
 		function outputOrderRow($file, $title, $quantity, $price) {
 				echo ("<tr>
-                    <td><img src=\"" . $file . "\"></td>
+                    <td><img src=\"images/books/tinysquare/" . $file . "\"></td>
                     <td class=\"mdl-data-table__cell--non-numeric\">" . $title . "</td>
                     <td>" . $quantity . "</td>
-                    <td>" . $price . "</td>
-                    <td>" . number_format($quantity * $price, 2) . "</td>
-                </tr>"
-		);}
-		
+                    <td>$" . number_format($price, 2, ".", ",") . "</td>
+                    <td>$" . number_format($quantity * $price, 2, ".", ",") . "</td>
+                </tr>");
+
+		}
+
 	?>
 
   <main class="mdl-layout__content mdl-color--grey-50">
     <header class="mdl-color--blue-grey-200">
       <h4>Order Summaries</h4>
       <p>Examine your customer orders</p>
-    </header>   
+    </header>
     <section class="page-content">
-    
+
         <div class="mdl-grid">
 
           <!-- mdl-cell + mdl-card -->
@@ -55,15 +54,15 @@
             <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
               <h2 class="mdl-card__title-text">My Orders</h2>
             </div>
-            <div class="mdl-card__supporting-text">            
+            <div class="mdl-card__supporting-text">
                 <ul class="mdl-list">
 					<?php
 						for ($i=500; $i<550; $i = $i + 10) {
 							echo "<li ><a href=\"#\">Order #" . $i . "</a></li>";
 						}
 					?>
-                </ul>   
-            </div>    
+                </ul>
+            </div>
           </div>  <!-- / mdl-cell + mdl-card -->
 
 
@@ -94,12 +93,12 @@
                       <tr class="totals">
                           <td colspan="4">Shipping</td>
                           <td>$100.00</td>
-                      </tr> 
+                      </tr>
                       <tr class="grandtotals">
                           <td colspan="4">Grand Total</td>
                           <td>$12650.00</td>
-                      </tr>                            
-                  </tfoot>          
+                      </tr>
+                  </tfoot>
                   <tbody>
                     <tr>
                      <td><img src="images/books/tinysquare/0205886159.jpg"></td>
@@ -134,7 +133,7 @@
 						outputOrderRow($file2, $product2, $quantity2, $price2);
 						outputOrderRow($file3, $product3, $quantity3, $price3);
 						outputOrderRow($file4, $product4, $quantity4, $price4);
-					?>					
+					?>
                   </tbody>
 
                 </table>
@@ -146,13 +145,13 @@
 
 
         </div>  <!-- / mdl-grid -->
-    
+
 
     </section>
   </main>
-  
-  
+
+
 </div>
-          
+
 </body>
 </html>
