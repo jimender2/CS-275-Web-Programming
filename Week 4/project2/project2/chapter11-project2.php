@@ -28,6 +28,7 @@
 		include 'data.inc.php';
 
 		$subtotal = 0;
+		$a=array();
 
 		function outputOrderRow($file, $title, $quantity, $price) {
 			$price1 = number_format($price, 2, ".", ",");
@@ -43,6 +44,7 @@
 			
 			global $subtotal;
 			$subtotal = $subtotal + $quantity * $price;
+			$test = $quantity * $price;
 		}
 
 	?>
@@ -63,6 +65,7 @@
 			</div>
 			<div class="mdl-card__supporting-text">
 				<ul class="mdl-list">
+				
 					<?php
 						for ($i=500; $i<550; $i = $i + 10) {
 							echo "<li ><a href=\"#\">Order #" . $i . "</a></li>";
@@ -92,25 +95,6 @@
 					  <th>Amount</th>
 					</tr>
 				  </thead>
-				  <tfoot>
-					  <tr class="totals">
-						  <td colspan="4">Subtotal</td>
-						  <td>$11650.00</td>
-						  <?php
-						  
-						  $subtotal = 1;
-						  echo $subtotal;
-						  ?>
-					  </tr>
-					  <tr class="totals">
-						  <td colspan="4">Shipping</td>
-						  <td>$100.00</td>
-					  </tr>
-					  <tr class="grandtotals">
-						  <td colspan="4">Grand Total</td>
-						  <td>$12650.00</td>
-					  </tr>
-				  </tfoot>
 				  <tbody>
 
 					<?php
@@ -120,6 +104,32 @@
 						outputOrderRow($file4, $product4, $quantity4, $price4);
 					?>
 				  </tbody>
+				  <tfoot>
+					  <tr class="totals">
+						  <td colspan="4">Subtotal</td>
+						  <?php
+							echo "<td>$" . number_format($subtotal, 2, ".", ",") . "</td>";
+						  ?>
+					  </tr>
+					  <tr class="totals">
+						  <td colspan="4">Shipping</td>
+						  <?php
+							if ($subtotal < 10000){
+								echo "<td>$200.00</td>";
+								$subtotal = $subtotal + 200;
+							} else {
+								echo "<td>$100.00</td>";
+								$subtotal = $subtotal + 100;
+							}
+							?>
+					  </tr>
+					  <tr class="grandtotals">
+						  <td colspan="4">Grand Total</td>
+						  <?php
+							echo "<td>$" . number_format($subtotal, 2, ".", ",") . "</td>";
+						  ?>
+					  </tr>
+				  </tfoot>
 
 				</table>
 			</div>
