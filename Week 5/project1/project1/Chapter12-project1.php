@@ -1,6 +1,12 @@
 <?php 
+	$genre = array("Abstract", "Baroque", "Gothic", "Renaissance");
+	$subject = array("Animals", "Landscape", "People");
 
-
+	function drop($array){
+		foreach($array as $item){
+			echo "<option value=" . strtolower($item) . ">" . strtolower($item) . "</option>";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +22,7 @@
 <?php include 'header.inc.php'; ?>
     
 <main>
-<form class="form"  id="mainForm">
+<form class="form"  id="mainForm" action="art-process.php" method="POST">
    <fieldset class="form__panel">
       <legend class="form__heading">Edit Art Work Details</legend>
         <p class="form__row">
@@ -30,15 +36,24 @@
        <p class="form__row"> 
            <label>Genre</label><br/>
            <select name="genre" class="form__input form__select">
-              <option>Choose genre</option> 
-              
+				<option>Choose genre</option> 
+					<?php
+						foreach($genre as $item){
+					?>
+					<option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
+					<?php
+						}
+					?>
+
            </select>
        </p>
        <p class="form__row"> 
            <label>Subject</label><br/>
            <select name="subject" class="form__input form__select">
-              <option>Choose subject</option> 
-              
+				<option>Choose subject</option> 
+				<?php
+					drop($subject);
+				?>
            </select>
        </p>
        <p class="form__row">	
