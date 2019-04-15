@@ -37,14 +37,9 @@
            <label>Genre</label><br/>
            <select name="genre" class="form__input form__select">
 				<option>Choose genre</option> 
-					<?php
-						foreach($genre as $item){
-					?>
-					<option value="<?php echo strtolower($item); ?>"><?php echo $item; ?></option>
-					<?php
-						}
-					?>
-
+				<?php
+					drop($genre);
+				?>
            </select>
        </p>
        <p class="form__row"> 
