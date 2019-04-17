@@ -1,8 +1,20 @@
 <?php
+	try {
 
+		$connectionString = "mysql:host=localhost;dbname=book";
+		$user = "root";
+		$pass = "";
 
+		$pdo = new PDO($connectionString, $user, $pass);
+	}
+	catch (PDOException $e) {
+		die( $e->getMessage() );
+	}
 
-
+	$userID = '';
+	if (isset($_GET['employee'])) {
+		$userID = $_GET['employee'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +61,12 @@
                          <?php  
                            /* programmatically loop though employees and display each
                               name as <li> element. */
+							  $sql = "SELECT * FROM Employees ORDER BY LastName";
+							  $result = $pdo->query($sql);
+							  while ($row = $result->fetch()) {
+								  echo '<li><a href="chapter14-project1.php?employee=' . $row['EmployeeID'] . '">' . $row['FirstName'] . ' ' . $row['LastName'] . '</a></li>';
+								  echo '<br/>';
+							  }
                          ?>            
 
                     </ul>
@@ -72,6 +90,17 @@
                               
                            <?php   
                              /* display requested employee's information */
+							 $sql = "SELECT * FROM Employees WHERE EmployeeID=?";
+							 $statement = $pdo->prepare($sql);
+							 $statement->bindValue(1, $userID);
+							 $statement->execute();
+							 while ($row = $statement->fetch()) {
+								  echo $row['FirstName'] . " " . $row['LastName'] . '<br/>';
+								  echo $row['Address'] . '<br/>';
+								  echo $row['City'] . ", " . $row['Region'] . '<br/>';
+								  echo $row['Country'] . ", " . $row['Postal'] . '<br/>';
+								  echo $row['Email'] . '<br/>';
+							  }
                            ?>
                            
          
@@ -81,6 +110,11 @@
                                <?php                       
                                  /* retrieve for selected employee;
                                     if none, display message to that effect */
+								 $sql = "SELECT * FROM employeetodo WHERE EmployeeID=? ORDER BY DateBy";
+								 $statement = $pdo->prepare($sql);
+							     $statement->bindValue(1, $userID);
+							     $statement->execute();
+							     
                                ?>                                  
                             
                                 <table class="mdl-data-table  mdl-shadow--2dp">
@@ -94,7 +128,12 @@
                                   </thead>
                                   <tbody>
                                    
-                                    <?php /*  display TODOs  */ ?>
+                                    <?php /*  display TODOs  */ 
+									
+									while ($row = $statement->fetch()) {
+										echo '<tr><td>' . $row['DateBy'] . '</td><td>' . $row['Status'] . '</td><td>' . $row['Priority'] . '</td><td>' . $row['Description'] . '</td></tr>';
+									}
+									?>
                             
                                   </tbody>
                                 </table>
