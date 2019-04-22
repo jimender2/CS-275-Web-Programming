@@ -4,8 +4,65 @@ include 'includes/book-utilities.inc.php';
 
 $customers = readCustomers('data/customers.txt');
 
+class Order {
+  public $order;
+  public $customer;
+  public $ISBN;
+  public $title;
+  public $category;
+  
+  function __construct($order, $customer, $ISBN, $title, $category) {
+    $this -> order = $order;
+    $this -> customer = $customer;
+    $this -> ISBN = $ISBN;
+    $this -> title = $title;
+    $this -> category = $category;
+  }
+
+}
+
+class Customer {
+  public $id;
+  public $name;
+  public $email;
+  public $university;
+  public $address;
+  public $city;
+  public $country;
+  public $sales = array();
+  
+  function __construct($id, $name, $email, $university, $address, $city, $country, $sales){
+    $this -> id = $id;
+    $this -> name = $name;
+    $this -> email = $email;
+    $this -> university = $university;
+    $this -> address = $address;
+    $this -> city = $city;
+    $this -> country = $country;
+    $this -> sales = $sales;
+  }
+  
+}
+
+
+$customerList = array();
+$orderList = array();
+
+foreach ($customers as $customer) {
+  $id = $customer["id"];
+  $name = $customer["name"];
+  $email = $customer["email"];
+  $university = $customer["university"];
+  $address = $customer["address"];
+  $city = $customer["city"];
+  $country = $customer["country"];
+  $sales = $customer["sales"];
+  $customerList[$id] = new Customer($id, $name, $email, $university, $address, $city, $country, $sales);
+}
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,13 +123,13 @@ $customers = readCustomers('data/customers.txt');
                       <tbody>
                          <?php  
 
-                         foreach ($customers as $cust) {
+                         foreach ($customerList as $cust) {
                            echo '<tr>';
-                           echo '<td class="mdl-data-table__cell--non-numeric"><a href="chapter12-project3.php?customer=' . $cust['id'] . '">' . $cust['name'] . '</a></td>';
-                           echo '<td class="mdl-data-table__cell--non-numeric">' . $cust['university'] . '</td>';
-                           echo '<td class="mdl-data-table__cell--non-numeric">' . $cust['city'] . '</td>';   
-                           echo '<td><span class="inlinesparkline">' . $cust['sales'] . '</span></td>';
-                           echo '</tr>    ';    
+                           echo '<td class="mdl-data-table__cell--non-numeric"><a href="chapter13-project3.php?customer=' . $cust -> id . '">' . $cust -> name . '</a></td>';
+                           echo '<td class="mdl-data-table__cell--non-numeric">' . $cust -> university . '</td>';
+                           echo '<td class="mdl-data-table__cell--non-numeric">' . $cust -> city . '</td>';
+                           echo '<td><span class="inlinesparkline">' . $cust -> sales . '</span></td>';
+                           echo '</tr>    ';  
                         } 
                         ?>            
 
@@ -117,13 +174,20 @@ $customers = readCustomers('data/customers.txt');
                     <div class="mdl-card__supporting-text">       
                                
                                   
-                           <?php                       
-
+                        <?php
                            $orders = readOrders( $_GET['customer'], 'data/orders.txt' );
-                           if ( is_null($orders) ) {  
-                                echo 'No orders for ' . $requestedCustomer['name'];        
+                           if ( is_null($orders) ) {
+                                echo 'No orders for ' . $requestedCustomer['name'];
                            } else {
-                            ?>                                         
+                             foreach ($orders as $order) {
+                               $id = $order["id"];
+                               $customer = $order["customer"];
+                               $isbn = $order["isbn"];
+                               $title = $order["title"];
+                               $category = $order["category"];
+                               $orderList[$id] = new Order($id,$customer,$isbn,$title,$category);
+                             }
+                        ?>                                 
 
                                <table class="mdl-data-table  mdl-shadow--2dp">
                               <thead>
@@ -135,16 +199,16 @@ $customers = readCustomers('data/customers.txt');
                               </thead>
                               <tbody>
                                
-                                 <?php foreach ($orders as $ord) { 
-
+                                 <?php foreach ($orderList as $ord) {
+									 
                                     echo '<tr>';
-                                    echo '<td><img src="images/tinysquare/' . $ord['isbn'] . '.jpg"></td>';
-                                    echo '<td>' . $ord['isbn'] . '</td>';
-                                    echo '<td class="mdl-data-table__cell--non-numeric"><a href="chapter12-project03.php?isbn=' . $ord['isbn'] . '">' . $ord['title'] . '</td>';
-                                    echo '</tr>    ';  
-
-                                 } ?>                               
-                    
+                                    echo '<td><img src="images/tinysquare/' . $ord -> ISBN . '.jpg"></td>';
+                                    echo '<td>' . $ord -> ISBN . '</td>';
+                                    echo '<td class="mdl-data-table__cell--non-numeric"><a href="chapter13-project03.php?isbn=' . $ord -> ISBN . '">' . $ord -> title . '</td>';
+                                    echo '</tr>    ';
+									
+                                 } ?>
+								 
                               </tbody>
                             </table>
                          <?php  } ?>
